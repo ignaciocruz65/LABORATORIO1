@@ -1,0 +1,257 @@
+//@version=4
+study(title="tesTP", shorttitle="INDICATORTES", overlay=true)
+
+// ================================================================================================================
+// Inputs
+// ================================================================================================================
+
+src = input(close, title="Source")
+ema_type = input("ema", title="Grupo de EMAs", options=["sma","ema","wma", "swma", "vwma", "hma", "alma", "rma", "linreg"])
+ema150_len = (150)
+ema200_len = (200)
+//ema3_len = input(50, title="EMA3 length")
+//ema4_len = input(100, title="EMA4 length")
+
+sma_type = input("sma", title="Grupo ded SMAs", options=["sma","ema","wma", "swma", "vwma", "hma", "alma", "rma", "linreg"])
+sma30_len = (30)
+sma200_len = (200)
+//sma3_len = input(50, title="SMA3 length")
+//sma4_len = input(100, title="SMA4 length")
+
+wma_type = input("wma", title="Grupo ded WMAs", options=["sma","ema","wma", "swma", "vwma", "hma", "alma", "rma", "linreg"])
+wma21_len = (24)
+wma10_len = (10)
+wma30_len = (30)
+wma50_len = (50)
+
+wma12_len = (12)
+
+
+showEMAs = input(true, title="Show All EMAs")
+showSMAs = input(true, title="Show All SMAs")
+showWMAs = input(true, title="Show All WMAs")
+linreg_offset = input(0, title="Linreg Offset (for linreg only)")
+
+// ================================================================================================================
+// Constants
+// ================================================================================================================
+
+// init color constants
+color_transp = 20
+
+ema150_color = color.green
+ema200_color = color.white
+ema3_color = color.red
+ema4_color = color.yellow
+
+sma30_color = color.purple
+sma200_color = color.green
+sma3_color = color.red 
+sma4_color = color.yellow
+
+wma21_color = color.yellow
+wma10_color = color.yellow
+wma30_color = color.red
+wma50_color = color.black
+wma12_color = color.black
+
+
+// ================================================================================================================
+// Functions
+// ================================================================================================================
+
+
+isDaily() =>
+    timeframe.period == "D"
+
+isWeekly() =>
+    timeframe.period == "W"
+
+isMonthly() =>
+    timeframe.period == "M"
+
+// Hull Moving Average
+hma(src, length) =>
+    len = max(2,length)
+    wma((2 * wma(src, len/2)) - wma(src, len), round(sqrt(len)))
+
+// returns ma value by type and length
+ma(src, type, length) =>
+    len = max(1,length)
+    type == "sma"? sma(src, len) : 
+         type == "ema"? ema(src, len) : 
+             type == "wma"? wma(src, len) : 
+                 type == "vwma"? vwma(src, len) : 
+                     type == "swma"? swma(src) : 
+                         type == "hma"? hma(src, len) : 
+                                 type == "rma"? rma(src, len) : 
+                                     type == "linreg"? linreg(src, len, linreg_offset) : na
+
+// ================================================================================================================
+// Processing
+// ================================================================================================================
+
+// EMA Processing
+
+ema1 = ema150_len > 0 ? ma(src, ema_type, ema150_len) : na
+ema2 = ema200_len > 0 ? ma(src, ema_type, ema200_len) : na
+
+//ema3 = ema3_len > 0 ? ma(src, ema_type, ema3_len) : na
+//ema4 = ema4_len > 0 ? ma(src, ema_type, ema4_len) : na
+
+plot(isDaily() ? ema1 : na, color=ema150_color, linewidth=1, title="EMA 150", style=plot.style_line)
+plot(isDaily() ? ema2 : na, color=ema200_color, linewidth=1, title="EMA 200", style=plot.style_line)
+//plot(showEMAs ? ema3 : na, color=ema3_color, linewidth=2, title="EMA3", style=plot.style_line)
+//plot(showEMAs ? ema4 : na, color=ema4_color, linewidth=2, title="EMA4", style=plot.style_line)
+
+// SMA Processing
+
+sma1 = sma30_len > 0 ? ma(src, sma_type, sma30_len) : na
+sma2 = sma200_len > 0 ? ma(src, sma_type, sma200_len) : na
+//sma3 = sma3_len > 0 ? ma(src, sma_type, sma3_len) : na
+//sma4 = sma4_len > 0 ? ma(src, sma_type, sma4_len) : na
+
+
+plot(isDaily() ? sma1 : na, color=sma30_color, linewidth=1, title="SMA 30", style=plot.style_line)
+plot(isWeekly() ? sma2 : na, color=sma200_color, linewidth=1, title="SMA 200", style=plot.style_line)
+//plot(showSMAs ? sma3 : na, color=sma3_color, linewidth=2, title="SMA3", style=plot.style_line)
+//plot(showSMAs ? sma4 : na, color=sma4_color, linewidth=2, title="SMA4", style=plot.style_line)
+
+// WMA PROCCESSING
+
+wma1 = wma21_len > 0 ? ma(src, wma_type, wma21_len) : na
+wma2 = wma30_len > 0 ? ma(src, wma_type, wma30_len) : na
+wma3 = wma50_len > 0 ? ma(src, wma_type, wma50_len) : na
+wma4 = wma12_len > 0 ? ma(src, wma_type, wma12_len) : na
+wma5 = wma10_len > 0 ? ma(src, wma_type, wma10_len) : na
+
+
+label.new(x=bar_index, y=ema1, text="EMA 150", color=ema150_color, style=label.style_label_right, textcolor=ema150_color)
+
+plot(isDaily() ? wma1 : na, color=wma21_color, linewidth=1, title="TS 21", style=plot.style_line)
+plot(isWeekly() ? wma2 : na, color=wma30_color, linewidth=1, title="WMA 30", style=plot.style_line)
+plot(isWeekly() ? wma3 : na, color=wma50_color, linewidth=2, title="WMA 50", style=plot.style_line)
+plot(isMonthly() ? wma4 : na, color=wma12_color, linewidth=2, title="WMA 12", style=plot.style_line)
+plot(isWeekly() ? wma5 : na, color=wma10_color, linewidth=2, title="WMA 10", style=plot.style_line)
+
+
+
+fastLen = input(title='Fast EMA Length', defval=9)
+slowLen = input(title='Slow EMA Length', defval=20)
+useTextLabels = input(true, title='Use Text-Based Crossover Labels?', group='Crossover Moving Averages')
+
+fastEMA = ema(close, fastLen)
+slowEMA = ema(close, slowLen)
+
+fema = plot(fastEMA, title='FastEMA', color=color.new(color.green, 0), linewidth=1, style=plot.style_line)
+sema = plot(slowEMA, title='SlowEMA', color=color.new(color.red, 0), linewidth=1, style=plot.style_line)
+
+fill(fema, sema, color=fastEMA > slowEMA ? color.new(#417505, 50) : color.new(#890101, 50), title='Cloud')
+
+// Bull and Bear Alerts
+Bull = crossover(fastEMA, slowEMA)
+Bear = crossunder(fastEMA, slowEMA)
+
+plotshape(Bull, title='Calls Label', color=color.new(color.green, 25), textcolor=useTextLabels ? color.white : color.new(color.white, 100), style=useTextLabels ? shape.labelup : shape.triangleup, text='Calls', location=location.belowbar)
+
+plotshape(Bear, title='Puts Label', color=color.new(color.red, 25), textcolor=useTextLabels ? color.white : color.new(color.white, 100), style=useTextLabels ? shape.labeldown : shape.triangledown, text='Puts', location=location.abovebar)
+
+var alertConditionBull = crossover(fastEMA, slowEMA)
+var alertConditionBear = crossunder(fastEMA, slowEMA)
+
+alertcondition(condition=alertConditionBull, title="Calls Alert", message="Calls Alert: 9ema crossed over 20ema")
+alertcondition(condition=alertConditionBear, title="Puts Alert", message="Puts Alert: 9ema crossed under 20ema")
+
+
+
+
+//INPUTS
+gr1="Source / Length Left / Length Right"
+srcH = input(high, title="Pivot High", inline="Pivot High", group=gr1)
+leftLenH = input(title="", type=input.integer, defval=5, minval=1, inline="Pivot High",group=gr1)
+rightLenH = input(title="/", type=input.integer, defval=5, minval=1, inline="Pivot High",group=gr1)
+colorH = input(title="", defval=color.new(color.green,50), inline="Pivot High",group=gr1)
+
+srcL = input(low, title="Pivot Low ", inline="Pivot Low", group=gr1)
+leftLenL = input(title="", type=input.integer, defval=5, minval=1, inline="Pivot Low", group=gr1)
+rightLenL = input(title="/", type=input.integer, defval=5, minval=1, inline="Pivot Low",group=gr1)
+colorL = input(title="", defval=color.new(color.red,50), inline="Pivot Low",group=gr1)
+
+
+gr2="Options"
+ShowHHLL = input(true, title="Show HH, LL, LH, HL markers on candles",group=gr2)
+ShowPrice = input(true, title="Show HH, LL, LH, HL  price on candles",group=gr2)
+ShowSRLevels = input(true, title="Show S/R Level Extensions",group=gr2)
+maxLvlLen = input(0, minval=0, title="Maximum S/R Level Extension Length (0 = Max)",group=gr2)
+ShowChannel = input(false, title="Show Levels as a Fractal Chaos Channel",group=gr2)
+ShowFB = input(true, title="Show fractal Break out/down symbols",group=gr2)
+
+// Get High and Low Pivot Points
+ph = pivothigh(srcH, leftLenH, rightLenH)
+pl = pivotlow(srcL, leftLenL, rightLenL)
+
+// Higher Highs, Lower Highs, Higher Lows, Lower Lows 
+valuewhen_1 = valuewhen(ph, srcH[rightLenH], 1)
+valuewhen_2 = valuewhen(ph, srcH[rightLenH], 0)
+higherhigh = na(ph) ? na : valuewhen_1 < valuewhen_2 ? ph : na
+valuewhen_3 = valuewhen(ph, srcH[rightLenH], 1)
+valuewhen_4 = valuewhen(ph, srcH[rightLenH], 0)
+lowerhigh = na(ph) ? na : valuewhen_3 > valuewhen_4 ? ph : na
+valuewhen_5 = valuewhen(pl, srcL[rightLenL], 1)
+valuewhen_6 = valuewhen(pl, srcL[rightLenL ], 0)
+higherlow = na(pl) ? na : valuewhen_5 < valuewhen_6 ? pl : na
+valuewhen_7 = valuewhen(pl, srcL[rightLenL], 1)
+valuewhen_8 = valuewhen(pl, srcL[rightLenL ], 0)
+lowerlow = na(pl) ? na : valuewhen_7 > valuewhen_8 ? pl : na
+
+
+drawLabel(_offset, _pivot, _style, _yloc, _color, _text) =>
+    if not na(_pivot)
+        label.new(bar_index[_offset], _pivot, text = _text+tostring(_pivot, format.mintick)+"]", style=_style, yloc=_yloc, color=_color, textcolor=_color)
+
+drawLabel(rightLenH, ShowPrice ? higherhigh : na, label.style_none, yloc.abovebar, colorH, "[")
+drawLabel(rightLenH, ShowPrice ? higherlow : na, label.style_none, yloc.belowbar, colorL, "[")
+drawLabel(rightLenH, ShowPrice ? lowerhigh : na, label.style_none, yloc.abovebar, colorH, "[")
+drawLabel(rightLenH, ShowPrice ? lowerlow : na, label.style_none, yloc.belowbar, colorL, "[")
+
+plotshape(ShowHHLL ? higherhigh : na, title='HH', style=shape.triangledown, location=location.abovebar, color=colorH, text="HH", textcolor=colorH, offset=-rightLenH)
+plotshape(ShowHHLL ? higherlow : na, title='HL', style=shape.triangleup, location=location.belowbar, color=colorL, text="HL", textcolor=colorL, offset=-rightLenH)
+plotshape(ShowHHLL ? lowerhigh : na, title='LH', style=shape.triangledown, location=location.abovebar, color=colorH, text="LH", textcolor=colorH, offset=-rightLenL)
+plotshape(ShowHHLL ? lowerlow : na, title='LL', style=shape.triangleup, location=location.belowbar, color=colorL, text="LL", textcolor=colorL, offset=-rightLenL)
+
+
+//Count How many candles for current Pivot Level, If new reset.
+countH = 0
+countL = 0
+countH := na(ph) ? nz(countH[1]) + 1 : 0
+countL := na(pl) ? nz(countL[1]) + 1 : 0
+
+pvtH = 0.0
+pvtL = 0.0
+pvtH := na(ph) ? pvtH[1] : srcH[rightLenH]
+pvtL := na(pl) ? pvtL[1] : srcL[rightLenL]
+
+HpC = pvtH != pvtH[1] ? na : colorH
+LpC = pvtL != pvtL[1] ? na : colorL
+
+// Show Levels if Selected
+plot(ShowSRLevels and not ShowChannel and (maxLvlLen == 0 or countH < maxLvlLen) ? pvtH : na, color=HpC, offset=-rightLenH , title="Top Levels HH,LH",style=plot.style_circles)
+plot(ShowSRLevels and not ShowChannel and (maxLvlLen == 0 or countL < maxLvlLen) ? pvtL : na, color=LpC, offset=-rightLenL , title="Bottom Levels LL,HL",style=plot.style_circles)
+
+// Show Levels as a Fractal Chaos Channel
+plot(ShowSRLevels and ShowChannel ? pvtH : na, color=colorH, style=plot.style_stepline, title="Top Chaos Channel",offset=-rightLenH)
+plot(ShowSRLevels and ShowChannel ? pvtL : na, color=colorL, style=plot.style_stepline, title="Bottom Chaos Channel", offset=-rightLenL)
+
+// // Add Optional Fractal Break Alerts
+buy = false
+sell = false
+buy  := close>pvtH and open<=pvtH 
+sell := close<pvtL and open>=pvtL 
+
+plotshape(ShowFB and buy?1:na, title="Breakout Bar", text="↑", style=shape.triangleup, location =location.belowbar, color=colorH, textcolor=colorH, size=size.auto, editable=true)
+plotshape(ShowFB and sell?-1:na, title="Breakdown Bar",text="↓", style=shape.triangledown,location=location.abovebar, color=colorL, textcolor=colorL, size=size.auto, editable=true)
+
+// Alerts
+alertcondition(buy or sell,title="Fractal Break Arrow",message="Alert")
+alertcondition(buy,title="Fractal Break Long",message="Long")
+alertcondition(sell,title="Fractal Break Short",message="Short")

@@ -1,0 +1,155 @@
+//@version=5
+indicator(title="Moving Average Convergence Divergence", shorttitle="MACD", timeframe="", timeframe_gaps=true)
+// Getting inputs
+fast_length = input(title="Fast Length", defval=12)
+slow_length = input(title="Slow Length", defval=26)
+src = input(title="Source", defval=close)
+signal_length = input.int(title="Signal Smoothing",  minval = 1, maxval = 50, defval = 9)
+sma_source = input.string(title="Oscillator MA Type",  defval="EMA", options=["SMA", "EMA"])
+sma_signal = input.string(title="Signal Line MA Type", defval="EMA", options=["SMA", "EMA"])
+// Plot colors
+col_macd = input(#2962FF, "MACD Line  ", group="Color Settings", inline="MACD")
+col_signal = input(#FF6D00, "Signal Line  ", group="Color Settings", inline="Signal")
+col_grow_above = input(#26A69A, "Above   Grow", group="Histogram", inline="Above")
+col_fall_above = input(#B2DFDB, "Fall", group="Histogram", inline="Above")
+col_grow_below = input(#FFCDD2, "Below Grow", group="Histogram", inline="Below")
+col_fall_below = input(#FF5252, "Fall", group="Histogram", inline="Below")
+// Calculating
+fast_ma = sma_source == "SMA" ? ta.sma(src, fast_length) : ta.ema(src, fast_length)
+slow_ma = sma_source == "SMA" ? ta.sma(src, slow_length) : ta.ema(src, slow_length)
+macd = fast_ma - slow_ma
+signal = sma_signal == "SMA" ? ta.sma(macd, signal_length) : ta.ema(macd, signal_length)
+hist = macd - signal
+plot(hist, title="Histogram", style=plot.style_columns, color=(hist>=0 ? (hist[1] < hist ? col_grow_above : col_fall_above) : (hist[1] < hist ? col_grow_below : col_fall_below)))
+plot(macd, title="MACD", color=col_macd)
+plot(signal, title="Signal", color=col_signal)
+
+
+//indicator(title="Relative Strength Index", shorttitle="RSI", format=format.price, precision=2, timeframe="", timeframe_gaps=true)
+
+ma(source, length, type) =>
+    switch type
+        "SMA" => ta.sma(source, length)
+        "Bollinger Bands" => ta.sma(source, length)
+        "EMA" => ta.ema(source, length)
+        "SMMA (RMA)" => ta.rma(source, length)
+        "WMA" => ta.wma(source, length)
+        "VWMA" => ta.vwma(source, length)
+
+rsiLengthInput = input.int(14, minval=1, title="RSI Length", group="RSI Settings")
+rsiSourceInput = input.source(close, "Source", group="RSI Settings")
+maTypeInput = input.string("SMA", title="MA Type", options=["SMA", "Bollinger Bands", "EMA", "SMMA (RMA)", "WMA", "VWMA"], group="MA Settings")
+maLengthInput = input.int(14, title="MA Length", group="MA Settings")
+bbMultInput = input.float(2.0, minval=0.001, maxval=50, title="BB StdDev", group="MA Settings")
+
+up = ta.rma(math.max(ta.change(rsiSourceInput), 0), rsiLengthInput)
+down = ta.rma(-math.min(ta.change(rsiSourceInput), 0), rsiLengthInput)
+rsi = down == 0 ? 100 : up == 0 ? 0 : 100 - (100 / (1 + up / down))
+rsiMA = ma(rsi, maLengthInput, maTypeInput)
+isBB = maTypeInput == "Bollinger Bands"
+
+
+
+plot(rsi, "RSI", color=#7E57C2)
+plot(rsiMA, "RSI-based MA", color=color.yellow)
+rsiUpperBand = hline(70, "RSI Upper Band", color=#787B86)
+hline(50, "RSI Middle Band", color=color.new(#787B86, 50))
+rsiLowerBand = hline(30, "RSI Lower Band", color=#787B86)
+rsiLowerBandint = 30
+rsiUpperBandint = 70
+fill(rsiUpperBand, rsiLowerBand, color=color.rgb(126, 87, 194, 90), title="RSI Background Fill")
+
+
+signalBuy = crossover(rsi, rsiLowerBandint) and crossover(rsiMA, rsiLowerBandint)
+signalSell = crossunder(rsi, rsiUpperBandint) and crossunder(rsiMA, rsiUpperBandint)
+
+bgcolor( signalBuy ? color.green : na , transp = 10)
+bgcolor( signalSell ? color.red : na , transp = 10)
+
+
+###############################################################################################################################################
+
+
+//@version=5
+indicator(title="TESCDSI", shorttitle="MACD_RSI_TES", timeframe="", timeframe_gaps=true)
+// Getting inputs
+fast_length = input(title="Fast Length", defval=12)
+slow_length = input(title="Slow Length", defval=26)
+src = input(title="Source", defval=close)
+signal_length = input.int(title="Signal Smoothing",  minval = 1, maxval = 50, defval = 9)
+sma_source = input.string(title="Oscillator MA Type",  defval="EMA", options=["SMA", "EMA"])
+sma_signal = input.string(title="Signal Line MA Type", defval="EMA", options=["SMA", "EMA"])
+// Plot colors
+col_macd = input(#2962FF, "MACD Line  ", group="Color Settings", inline="MACD")
+col_signal = input(#FF6D00, "Signal Line  ", group="Color Settings", inline="Signal")
+col_grow_above = input(#26A69A, "Above   Grow", group="Histogram", inline="Above")
+col_fall_above = input(#B2DFDB, "Fall", group="Histogram", inline="Above")
+col_grow_below = input(#FFCDD2, "Below Grow", group="Histogram", inline="Below")
+col_fall_below = input(#FF5252, "Fall", group="Histogram", inline="Below")
+// Calculating
+fast_ma = sma_source == "SMA" ? ta.sma(src, fast_length) : ta.ema(src, fast_length)
+slow_ma = sma_source == "SMA" ? ta.sma(src, slow_length) : ta.ema(src, slow_length)
+macd = fast_ma - slow_ma
+signal = sma_signal == "SMA" ? ta.sma(macd, signal_length) : ta.ema(macd, signal_length)
+hist = macd - signal
+plot(hist, title="Histogram", style=plot.style_columns, color=(hist>=0 ? (hist[1] < hist ? col_grow_above : col_fall_above) : (hist[1] < hist ? col_grow_below : col_fall_below)))
+plot(macd, title="MACD", color=col_macd)
+plot(signal, title="Signal", color=col_signal)
+
+
+//@version=4
+
+// Inputs
+rsi_length = input(14, title="RSI Length")
+ma_length = input(9, title="MA Length")
+source = input(close, title="Source")
+overbought = input(70, title="Overbought")
+oversold = input(30, title="Oversold")
+rsiLowerBandint = 30
+rsiUpperBandint = 70
+
+// Calculate RSI
+rsi = ta.rsi(source, rsi_length)
+
+// Calculate Moving Average of RSI
+ma_rsi = ta.sma(rsi, ma_length)
+
+
+// Calcula el RSI
+rsi_value = ta.rsi(source, rsi_length)
+
+// Calcula el valor máximo histórico del RSI
+var rsi_high = 0.0
+if (rsi_value > rsi_high)
+    rsi_high := rsi_value
+
+// Calcula el valor mínimo histórico del RSI
+var rsi_low = 100.0
+if (rsi_value < rsi_low)
+    rsi_low := rsi_value
+
+// Dibuja el RSI
+plot(rsi_value, title="RSI", color=color.blue)
+
+// Dibuja el máximo histórico
+plot(rsi_high, title="RSI High", color=color.red, linewidth=1,style_stepline)
+
+// Dibuja el mínimo histórico
+plot(rsi_low, title="RSI Low", color=color.green, linewidth=1)
+
+
+
+signalBuy = ta.crossover(rsi_length, rsiLowerBandint) and ta.crossover(ma_length, rsiLowerBandint)
+signalSell = ta.crossunder(rsi_length, rsiUpperBandint) and ta.crossunder(ma_length, rsiUpperBandint)
+
+plotshape(signalBuy ? 1 : na, style=shape.xcross, location=location.belowbar, color=color.green, size=size.auto)
+plotshape(signalSell ? 1 : na, style=shape.xcross, location=location.abovebar, color=color.red, size=size.auto)
+
+
+
+// Plot RSI and Moving Average
+plot(rsi, title="RSI", color=color.blue)
+plot(ma_rsi, title="RSI MA", color=color.red)
+sobreventa = hline(overbought, "Overbought", color=color.red)
+sobrecompra = hline(oversold, "Oversold", color=color.green)
+fill(sobreventa ,sobrecompra, color=color.rgb(126, 87, 194, 90), title="RSI Background Fill")
