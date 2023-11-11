@@ -5,7 +5,7 @@ echo Cambios agregados correctamente.
 
 echo Subiendo cambios...
 git commit -m "Agregando cambios"
-git push origin master
+git push
 echo Cambios subidos correctamente.
 
 echo Proceso completado.
