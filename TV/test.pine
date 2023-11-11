@@ -253,3 +253,95 @@ plotshape(ShowFB and sell?-1:na, title="Breakdown Bar",text="↓", style=shape.t
 alertcondition(buy or sell,title="Fractal Break Arrow",message="Alert")
 alertcondition(buy,title="Fractal Break Long",message="Long")
 alertcondition(sell,title="Fractal Break Short",message="Short")
+
+
+
+
+
+
+
+// Inputs
+i_offsetLabel = input(65, title='Label Horizontal Offset // Distancia en Eje Horizontal de la Etiqueta [0-205]', minval=0, maxval=205)
+offset = i_offsetLabel * (time - time[1])
+splitter = '__________________'
+nl = '\n'
+title = 'oogway,s'
+dynamicText = title + nl
+var label id = na
+label.delete(id)
+id := label.new(x=time + offset, y=close, xloc=xloc.bar_time, text=dynamicText)
+
+// LABEL VARIABLES
+i_showCCL = input(true, 'Show CCL dollar // Mostrar dólar CCL')
+i_showINDEX = input(true, 'Show INDICES // Mostrar INDICES')
+i_showDOMINANCE = input(true, 'Show DOMINANCE // Mostrar DOMINANCE')
+i_showMACD = input(true, 'Show MACD // Mostrar MACD')
+i_showRSI = input(true, 'Show RSI // Mostrar RSI')
+
+// ROUNDS
+f_round(_val, _decimals) =>
+    if _decimals == -1
+        _val
+    else
+        _p = pow(10, _decimals)
+        round(abs(_val) * _p) / _p * sign(_val)
+
+f_strHelp(_prefix, _var, _round) =>
+    _res = tostring(f_round(_var, _round))
+    _prefix + ' ' + _res + nl
+
+// CCLSection
+CCLTitle = splitter + nl
+CCLClose = security('(BCBA:GGAL/NASDAQ:GGAL*10+BCBA:BMA/NYSE:BMA*10+BCBA:YPFD/NYSE:YPF+BCBA:PAMP/NYSE:PAM*25+BCBA:BBAR/NYSE:BBAR*3)/5', 'M', close)
+CCL = f_strHelp('🇦🇷$ CCL💸 💲', CCLClose, 1)
+CCLSection = i_showCCL ? CCLTitle + nl + CCL : na
+
+// INDEXSection
+INDEXTitle = splitter + nl + nl + 'Forex💰 & Metals🔒️' + nl
+DOLLARClose = security('DXY', 'M', close)
+DOLLAR = f_strHelp('US$ Index 💵 Val:', DOLLARClose, 1)
+EUROClose = security('EXY', 'M', close)
+EURO = f_strHelp('€ Index 💶 Val:', EUROClose, 1)
+GOLDClose = security('GOLD', 'M', close)
+GOLD = f_strHelp('Gold 🟡 💲', GOLDClose, 1)
+SILVERClose = security('SILVER', 'M', close)
+SILVER = f_strHelp('Silver ⚪ 💲', SILVERClose, 1)
+INDEXSection = i_showINDEX ? INDEXTitle + nl + DOLLAR + EURO + nl + GOLD + SILVER : na
+
+// DOMINANCESection
+DOMINANCETitle = splitter + nl + nl + 'Crypto Dominance🌐' + nl
+BTCDClose = security('BTC.D', 'M', close)
+BTCD = f_strHelp('BTC ₿ % →', BTCDClose, 1)
+ETHDClose = security('ETH.D', 'M', close)
+ETHD = f_strHelp('ETH ⬨ % →', ETHDClose, 1)
+DOMINANCESection = i_showDOMINANCE ? DOMINANCETitle + nl + BTCD + ETHD : na
+
+// MACDSection
+MACDTitle = splitter + nl
+[macd, macdsignal, macdhist] = macd(close, 12, 26, 9)
+trend3 = macdhist > 0 ? '[ Bullish 📈 Alcista ]' : '[ Bearish 📉 Bajista ]'
+MACDSection = i_showMACD ? MACDTitle + nl + 'MACD Trend 📊 Tend:' + nl + trend3 + nl : na
+
+// RSISection
+RSITitle = splitter + nl
+rsi = rsi(close, 14)
+Trend1 = rsi > 70 ? nl + '🚨⚠️ 🚨⚠️ 🚨' + nl + nl + '[ OVERBUY!!!! 📈' + nl + '¡¡SOBRECOMPRA!! ]' : na
+Trend2 = rsi < 30 ? nl + '🚨⚠️ 🚨⚠️ 🚨' + nl + nl + '[ OVERSELL!!!! 📉' + nl + '¡¡SOBREVENTA!! ]' : na
+RSISection = i_showRSI ? RSITitle + nl + f_strHelp('RSI 🧮 〽️ Val:', rsi, 1) + Trend1 + Trend2 : na
+
+// STYLE
+label.set_textalign(id, text.align_left)
+label.set_color(id, color.new(color.black, 0))
+label.set_textcolor(id, color.new(color.white, 0))
+label.set_style(id, label.style_label_left)
+
+// DynamicText
+dynamicText := dynamicText + CCLSection + INDEXSection + DOMINANCESection + MACDSection + RSISection
+label.set_text(id, text=dynamicText)
+
+if Trend1 == nl + '🚨⚠️ 🚨⚠️ 🚨' + nl + nl + '[ OVERBUY!!!! 📈' + nl + '¡¡SOBRECOMPRA!! ]'
+    label.set_textcolor(id, color.white)
+    label.set_color(id, color.teal)
+if Trend2 == nl + '🚨⚠️ 🚨⚠️ 🚨' + nl + nl + '[ OVERSELL!!!! 📉' + nl + '¡¡SOBREVENTA!! ]'
+    label.set_textcolor(id, color.white)
+    label.set_color(id, color.maroon)

@@ -14,7 +14,6 @@ def verificarNB(lista_personajes):
     for iter in lista_personajes:
         if(iter['genero'] == 'NB'):
             print(iter['nombre'])
-# verificarNB(lista_personajes)
 
 # B. Recorrer la lista y determinar cuál es el superhéroe más alto de género F
 def max_height_gen_f(lista_personajes):
@@ -25,7 +24,6 @@ def max_height_gen_f(lista_personajes):
             max_height_f = iter["altura"]
             name_max_height_f = iter["nombre"]
     print(f"El superhéroe más alto de género F es: {name_max_height_f}")
-# max_height_gen_f(lista_personajes)
 
 # C. Recorrer la lista y determinar cuál es el superhéroe más alto de género M
 
@@ -37,8 +35,6 @@ def max_height_gen_m(lista_personajes):
             max_height_m = iter["altura"]
             name_max_height_m = iter["nombre"]
     print(f"El superhéroe más alto de género M es: {name_max_height_m}")
-# max_height_gen_m(lista_personajes)
-
 
 # D. Recorrer la lista y determinar cuál es el superhéroe más débil de género M
 
@@ -51,7 +47,6 @@ def min_strenght_gen_m(lista_personajes):
             min_strenght_m = actual_strenght
             name_min_strenght_m = iter["nombre"]
     print(f"El superhéroe más debil de género M es: {name_min_strenght_m} y su fuerza es {min_strenght_m}")
-# min_strenght_gen_m(lista_personajes)
 
 # E. Recorrer la lista y determinar cuál es el superhéroe más débil de género NB
 
@@ -64,8 +59,6 @@ def min_strenght_gen_nb(lista_personajes):
             min_strenght_nb = actual_strenght
             name_min_strenght_nb = iter["nombre"]
     print(f"El superhéroe más debil de género NB es: {name_min_strenght_nb} y su fuerza es {min_strenght_nb}")
-
-# min_strenght_gen_nb(lista_personajes)
 
 # F. Recorrer la lista y determinar la fuerza promedio de los superhéroes de
 # género NB
@@ -84,7 +77,6 @@ def promedio_super_nb(lista_personajes):
         print(f'El promedio de las fuerzas del genero NB es {average_nb}')
     else:
         print('No hay NB')
-# promedio_super_nb(lista_personajes)
 
 # G. Determinar cuántos superhéroes tienen cada tipo de color de ojos.
 
@@ -102,7 +94,6 @@ def verificar_color_ojos(lista_personajes):
 
 def print_verif_c_o():
     resultado_conteo = verificar_color_ojos(lista_personajes)
-
     for color in resultado_conteo:
         cantidad = resultado_conteo[color]
         print(f"Color de ojos: {color} - Cantidad: {cantidad}")
@@ -139,6 +130,7 @@ def lista_color_ojos(lista_personajes):
         else:
             dicc[color_ojos] = [iter["nombre"]]        
     return dicc
+
 def imprimir_c_o():
     conteo_ojos = lista_color_ojos(lista_personajes)
     for color in conteo_ojos:

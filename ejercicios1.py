@@ -175,5 +175,4 @@ class App(customtkinter.CTk):
     # (platos principales + bebidas) con una entrada gratuita para otra atracción del parque
     # "Aventuras Extremas".
     
-    for i in range(len_amigos):
-        pass
+

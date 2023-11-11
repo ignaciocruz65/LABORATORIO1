@@ -73,24 +73,24 @@ for i in lista_personajes:
 mensaje_c = (f'El personaje mas bajo es {nombre_min} {identidad_min} y su altura es {personaje_min_height} ')
 mensaje_d = (f'el promedio de los pesos superheroes masculinos es {average}')
 
-menu_stark = input('ingrese una letra del A-E para acceder a los resultados')
-match(menu_stark):
-    case 'A':
+while True:
+    menu_stark = input('ingrese una letra del A-E para acceder a los resultados\nA. Recorrer la lista imprimiendo por consola todos los datos de cada superhéroe\nB. Recorrer la lista y mostrar la identidad y el peso del superhéroe con mayor fuerza (MÁXIMO)\nC. Recorrer la lista y mostrar nombre e identidad del superhéroe más bajo(MÍNIMO)\nD. Recorrer la lista y determinar el peso promedio de los superhéroes masculinos (PROMEDIO)\nE. Recorrer la lista y mostrar nombre y peso de los superhéroes (cualquiergénero) los cuales su fuerza supere a la fuerza promedio de todas las superhéroes de género femenino')
+    if (menu_stark == 'A'):
         for personaje in lista_personajes:
             print("-------------------------")
             for atributo in personaje:
                 print(atributo,":",personaje[atributo])
-    case 'B':
+    elif(menu_stark == 'B'):
         for iter in lista_fuerza_max:
             print(f'los superheroes maximos son {iter["identidad"]}, con fuerza {iter["fuerza"]} y peso {iter["peso"]} ')
-    case 'C':
+    elif(menu_stark == 'C'):
         print(mensaje_c)
-    case 'D':
+    elif(menu_stark == 'D'):
         print(mensaje_d)
-    case 'E':
+    elif(menu_stark == 'E'):
         print(f'Lista de superheroes con fuerza mayor al promedio de mujeres que es {average_f}:')
         for personaje in lista_mayores:
             print(f"Nombre: {personaje['nombre']}\n Peso: {personaje['peso']}\n Fuerza: {personaje['fuerza']}")
-    case _:
-        print('opcion incorrecta ingrese nuevamente')
-        
+    else:
+        print('¡Hasta luego!')
+        break

@@ -195,4 +195,3 @@ if (numerominimo == None or numerominimo > numerouingresado):
         
 """
         
-        
