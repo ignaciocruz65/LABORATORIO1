@@ -1,0 +1,190 @@
+
+//@version=5
+indicator("Machine Learning: Gaussian Process Regression [LuxAlgo]", "LuxAlgo - Machine Learning: Gaussian Process Regression", overlay = true, max_lines_count = 500)
+//------------------------------------------------------------------------------
+//Settings
+//-----------------------------------------------------------------------------{
+window = input.int(100, 'Training Window    ', minval = 0, inline = 'window')
+fitCss = input(#2962ff, '', inline = 'window')
+
+forecast = input.int(20, 'Forecasting Length', minval = 0, maxval = 500, inline = 'forecast')
+fcastCss = input(#f23645, '', inline = 'forecast')
+
+length = input.float(20., 'Smooth', minval = 1)
+sigma = input.float(0.01, step = 0.1, minval = 0)
+
+update = input.string('Lock Forecast', 'Update Mechanism'
+  , options = ['Lock Forecast', 'Update Once Reached', 'Continuously Update'])
+
+//-----------------------------------------------------------------------------}
+//Functions
+//-----------------------------------------------------------------------------{
+rbf(x1, x2, l)=> math.exp(-math.pow(x1 - x2, 2) / (2.0 * math.pow(l, 2)))
+
+kernel_matrix(X1, X2, l)=>
+    km = matrix.new<float>(X1.size(), X2.size())
+
+    i = 0
+    for x1 in X1
+        j = 0
+        for x2 in X2
+            rbf = rbf(x1, x2, l)
+            km.set(i, j, rbf)
+            j += 1
+        i += 1
+    
+    km
+
+//-----------------------------------------------------------------------------}
+//Kernel matrix
+//-----------------------------------------------------------------------------{
+var identity = matrix.new<int>(window, window, 0)
+var matrix<float> K_source = na
+
+if barstate.isfirst
+    xtrain = array.new<int>(0)
+    xtest = array.new<int>(0)
+
+    //Build identity matrix
+    for i = 0 to window-1
+        for j = 0 to window-1
+            identity.set(i, j, i == j ? 1 : 0)
+    
+        xtrain.push(i)
+    
+    for i = 0 to window+forecast-1
+        xtest.push(i)
+    
+    //Compute kernel matrices
+    s = identity.mult(sigma * sigma)
+    Ktrain = kernel_matrix(xtrain, xtrain, length).sum(s)
+    K_inv = Ktrain.pinv()
+    K_star = kernel_matrix(xtrain, xtest, length)
+    K_source := K_star.transpose().mult(K_inv)
+
+//-----------------------------------------------------------------------------}
+//Set forecast
+//-----------------------------------------------------------------------------{
+n = bar_index
+mean = ta.sma(close, window)
+
+//Model set condition
+var step = 0
+set_model = switch update
+    'Lock Forecast' => barstate.islastconfirmedhistory
+    'Update Once Reached' => barstate.islast and step == 0
+    'Continuously Update' => barstate.islast
+
+if set_model
+    //Remove previous lines
+    if update != 'Lock'
+        for l in line.all
+            l.delete()
+
+    //Dataset
+    ytrain = array.new<float>(0)
+    
+    for i = 0 to window-1
+        ytrain.unshift(close[i] - mean)
+
+    //Estimate
+    mu = K_source.mult(ytrain)
+
+    //Set forecast
+    float y1 = na
+    k = -window+2
+
+    points = array.new<chart.point>(0)
+    fcast = array.new<chart.point>(0)
+
+    for element in mu
+        if k == 1
+            fcast.push(chart.point.from_index(n+k, element + mean))
+            points.push(chart.point.from_index(n+k, element + mean))
+        else if k > 1
+            fcast.push(chart.point.from_index(n+k, element + mean))
+        else
+            points.push(chart.point.from_index(n+k, element + mean))
+        
+        k += 1
+
+    polyline.delete(polyline.new(points, line_color = fitCss, line_width = 2)[1])
+    polyline.delete(polyline.new(fcast, line_color = fcastCss, line_width = 2)[1])
+
+//Update forecast
+if update == 'Update Once Reached'
+    if barstate.islast
+        step += 1
+        step := step == forecast ? 0 : step
+// user inputs
+length = input.int(25, "Length", 2, 999, 1, inline = "tgc", group = "trend gaussian channel settings")
+mult   = input.float(1, "", 1, 5, 0.01, "Top & Bottom Band Multiplier", "tgc", "trend gaussian channel settings")
+
+barcol = input.bool(true, "Bar Colors", "Toggle On/Off Candle Colors", group = "candle color settings")
+signal = input.bool(true, "Trend Shift Signals", "Toggle On/Off Trend Signals When Trend Shifts", group = "candle color settings")
+
+// gaussian channel
+
+guassianBasis(float source, int length, float mult) =>
+    basis = ta.ema(ta.hma(ta.sma(source, length), length * 2), length /2)
+    topBand = basis + (ta.atr(105) * (mult * 1.005))
+    lowBand = basis - (ta.atr(105) / (mult / 1.005))
+    [basis, topBand, lowBand]
+
+[base, upper, lower] = guassianBasis(close, length, mult)
+
+upward = base < high
+dnward = base > low
+
+basePlot  = plot(base, "Base", upward ? color.new(#00cf4b, 15) : color.new(#ff5252, 15), 2)
+upperPlot = plot(upper, "Upper", upward ? color.new(#00cf4b, 20) : color.new(#ff5252, 20), 2)
+lowerPlot = plot(lower, "Lower", upward ? color.new(#00cf4b, 20) : color.new(#ff5252, 20), 2)
+
+fill(upperPlot, lowerPlot, upward ? color.new(#00cf4b, 80) : color.new(#ff0000, 80), "Channel Fill")
+
+// barcolor 
+
+uptrend = color.from_gradient(ta.rsi(close, 15), 25, 76, #67248f, #00cf4b)
+ranging = color.from_gradient(ta.rsi(close, 15), 30, 75, #63726f, #67248f)
+dntrend = color.from_gradient(ta.rsi(close, 15), 8, 82, #ff0000, #67248f)
+
+barcolor(barcol ? high > upper ? uptrend : high < upper and high > lower ? ranging : dntrend : na)
+
+// signals
+
+upSignalCondition = high > upper and ta.crossover(low, upper)
+dnSignalCondition = low < lower and ta.crossunder(high, lower)
+
+plotshape(signal and upSignalCondition, "Bullish Signal", shape.labelup, location.belowbar, color.new(#00cf4b, 35), size = size.small)
+plotshape(signal and dnSignalCondition, "Bearish Signal", shape.labeldown, location.abovebar, color.new(#ff0000, 35), size = size.small)
+
+
+
+// user inputs trend gaussian channel settings
+length_gaussian = input(25, "Length", 2, 999, 1, inline = "tgc", group = "trend gaussian channel settings")
+mult   = input(1, "", 1, 5, 0.01, "Top & Bottom Band Multiplier", "tgc", "trend gaussian channel settings")
+barcol = input(true, "Bar Colors", "Toggle On/Off Candle Colors", group = "candle color settings")
+signal = input(true, "Trend Shift Signals", "Toggle On/Off Trend Signals When Trend Shifts", group = "candle color settings")
+// gaussian channel
+guassianBasis(source, length_gaussian, mult) =>
+    basis = ema(hma(sma(source, length_gaussian), length_gaussian * 2), length_gaussian /2)
+    topBand = basis + (atr(105) * (mult * 1.005))
+    lowBand = basis - (atr(105) / (mult / 1.005))
+    [basis, topBand, lowBand]
+[base, upper, lower] = guassianBasis(close, length_gaussian, mult)
+upward = base < high
+dnward = base > low
+basePlot  = plot(base, "Base", colorup = upward ? color.new(#00cf4b, 15) : color.new(#ff5252, 15), linewidth = 2)
+upperPlot = plot(upper, "Upper", colorup = upward ? color.new(#00cf4b, 20) : color.new(#ff5252, 20), linewidth = 2)
+lowerPlot = plot(lower, "Lower", colorup = upward ? color.new(#00cf4b, 20) : color.new(#ff5252, 20), linewidth = 2)
+fill(upperPlot, lowerPlot, colorup = upward ? color.new(#00cf4b, 80) : color.new(#ff0000, 80), transp = 80, title = "Channel Fill")
+// barcolor 
+uptrend = color.new(color.from_gradient(rsi(close, 15), 25, 76, #67248f, #00cf4b))
+ranging = color.new(color.from_gradient(rsi(close, 15), 30, 75, #63726f, #67248f))
+dntrend = color.new(color.from_gradient(rsi(close, 15), 8, 82, #ff0000, #67248f))
+barcolor(barcol ? high > upper ? uptrend : high < upper and high > lower ? ranging : dntrend : na)
+// signals
+upSignalCondition = high > upper and crossover(low, upper)
+dnSignalCondition = low < lower and crossunder(high, lower)
+plotshape(signal and upSignalCondition, "Bullish Signal", shape.labelup, location.belowbar, color.new(#00cf4b, 35), size = size.small)
+plotshape(signal and dnSignalCondition, "Bearish Signal", shape.labeldown, location.abovebar, color.new(#ff0000, 35), size = size.small)

@@ -600,8 +600,6 @@ if update == 'Update Once Reached'
 // This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
 // © DeltaAlgo
 
-//@version=5
-indicator("Trend Gaussian Channels [DeltaAlgo]", "Trend Gaussian Channels [DeltaAlgo]", true)
 
 // user inputs
 length = input.int(25, "Length", 2, 999, 1, inline = "tgc", group = "trend gaussian channel settings")
@@ -646,32 +644,3 @@ plotshape(signal and upSignalCondition, "Bullish Signal", shape.labelup, locatio
 plotshape(signal and dnSignalCondition, "Bearish Signal", shape.labeldown, location.abovebar, color.new(#ff0000, 35), size = size.small)
 
 
-
-// user inputs trend gaussian channel settings
-length_gaussian = input(25, "Length", 2, 999, 1, inline = "tgc", group = "trend gaussian channel settings")
-mult   = input(1, "", 1, 5, 0.01, "Top & Bottom Band Multiplier", "tgc", "trend gaussian channel settings")
-barcol = input(true, "Bar Colors", "Toggle On/Off Candle Colors", group = "candle color settings")
-signal = input(true, "Trend Shift Signals", "Toggle On/Off Trend Signals When Trend Shifts", group = "candle color settings")
-// gaussian channel
-guassianBasis(source, length_gaussian, mult) =>
-    basis = ema(hma(sma(source, length_gaussian), length_gaussian * 2), length_gaussian /2)
-    topBand = basis + (atr(105) * (mult * 1.005))
-    lowBand = basis - (atr(105) / (mult / 1.005))
-    [basis, topBand, lowBand]
-[base, upper, lower] = guassianBasis(close, length_gaussian, mult)
-upward = base < high
-dnward = base > low
-basePlot  = plot(base, "Base", colorup = upward ? color.new(#00cf4b, 15) : color.new(#ff5252, 15), linewidth = 2)
-upperPlot = plot(upper, "Upper", colorup = upward ? color.new(#00cf4b, 20) : color.new(#ff5252, 20), linewidth = 2)
-lowerPlot = plot(lower, "Lower", colorup = upward ? color.new(#00cf4b, 20) : color.new(#ff5252, 20), linewidth = 2)
-fill(upperPlot, lowerPlot, colorup = upward ? color.new(#00cf4b, 80) : color.new(#ff0000, 80), transp = 80, title = "Channel Fill")
-// barcolor 
-uptrend = color.new(color.from_gradient(rsi(close, 15), 25, 76, #67248f, #00cf4b))
-ranging = color.new(color.from_gradient(rsi(close, 15), 30, 75, #63726f, #67248f))
-dntrend = color.new(color.from_gradient(rsi(close, 15), 8, 82, #ff0000, #67248f))
-barcolor(barcol ? high > upper ? uptrend : high < upper and high > lower ? ranging : dntrend : na)
-// signals
-upSignalCondition = high > upper and crossover(low, upper)
-dnSignalCondition = low < lower and crossunder(high, lower)
-plotshape(signal and upSignalCondition, "Bullish Signal", shape.labelup, location.belowbar, color.new(#00cf4b, 35), size = size.small)
-plotshape(signal and dnSignalCondition, "Bearish Signal", shape.labeldown, location.abovebar, color.new(#ff0000, 35), size = size.small)
