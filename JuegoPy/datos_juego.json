@@ -1,22 +1,1357 @@
 [
   {
-    "nivel1": 825,
+    "nivel1": 0,
     "nivel2": 0,
     "nivel3": 0
   },
   {
-    "nivel1": 30,
+    "nivel1": 0,
     "nivel2": 0,
     "nivel3": 0
   },
   {
-    "nivel1": 330,
+    "nivel1": 720,
     "nivel2": 0,
     "nivel3": 0
   },
   {
-    "nivel1": 425,
+    "nivel1": 285,
     "nivel2": 0,
     "nivel3": 0
+  },
+  {
+    "nivel1": 1245,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 1220,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 270,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 505
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 525
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 525
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 525
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 525
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 545
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 545
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 585
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 605
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 625
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 625
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 625
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 645
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 645
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 665
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 665
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 665
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 1200,
+    "nivel2": 15,
+    "nivel3": 705
+  },
+  {
+    "nivel1": 2005,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 375,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1850
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1850
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1850
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1850
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1850
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1850
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1850
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1850
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1870
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1870
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1870
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1870
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1890
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1890
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1890
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1890
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1890
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1910
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1910
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1910
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1910
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1910
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1945
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1965
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1985
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 1985
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2005
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2005
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2005
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2005
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2025
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2025
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2065
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2065
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2065
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2085
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2105
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2105
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2105
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2125
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2125
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1990,
+    "nivel2": 15,
+    "nivel3": 2145
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 450,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1730
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1730
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1730
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1730
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1750
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1750
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1750
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1750
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1750
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1770
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1770
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1770
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1770
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1770
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1785
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1785
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1805
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1805
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1820
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1820
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1820
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1820
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1820
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1880
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1880
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1880
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1880
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1880
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1880
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1920
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1920
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1920
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1920
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1960
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1960
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1960
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 1960
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 1975,
+    "nivel2": 15,
+    "nivel3": 2000
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 415,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 915,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 990,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 1180,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 675,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 710,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 270,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 2070,
+    "nivel2": 15,
+    "nivel3": 1520
+  },
+  {
+    "nivel1": 1960,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 335,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 780,
+    "nivel2": 0,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 0,
+    "nivel2": 345,
+    "nivel3": 0
+  },
+  {
+    "nivel1": 1970,
+    "nivel2": 15,
+    "nivel3": 1005
   }
 ]

@@ -558,7 +558,6 @@ def stark_marvel_app_5(lista_personajes):
     stark_normalizar_datos(lista_personajes)
     while bandera:
         impresion = stark_menu_principal_desafio_5()
-        print(impresion)
         if impresion == "A":
             stark_guardar_heroe_genero(lista_personajes, "M")
         ##///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -616,7 +615,7 @@ def stark_marvel_app_5(lista_personajes):
         elif impresion == "K":
             cantidad_color_ojos = calcular_cantidad_tipo(lista_personajes, "color_pelo")
             for color, cantidad in cantidad_color_ojos.items():
-                print(f"Color de ojos: {color} - Cantidad de superhéroes: {cantidad}")
+                print(f"Color de pelo: {color} - Cantidad de superhéroes: {cantidad}")
         ##///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         elif impresion == "L":
             cantidad_color_ojos = calcular_cantidad_tipo(lista_personajes, "inteligencia")

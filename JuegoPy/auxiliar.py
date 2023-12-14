@@ -41,7 +41,7 @@ class GuardarDatos():
         self.guardar_datos_juego()
 
     def cargar_datos_juego(self):
-        archivo = Path('datos_juego.json')
+        archivo = Path('PROGRAMACION 1\JuegoPy\datos_juego.json')
         if archivo.is_file():
             with archivo.open('r') as archivo_json:
                 datos_guardados = json.load(archivo_json)
@@ -52,7 +52,7 @@ class GuardarDatos():
     def guardar_datos_juego(self):
         lista_datos = self.cargar_datos_juego()
         lista_datos.append(self.datos_juego)
-        archivo = Path('datos_juego.json')
+        archivo = Path('PROGRAMACION 1\JuegoPy\datos_juego.json')
         with archivo.open('w') as archivo_json:
             json.dump(lista_datos, archivo_json,indent=2)
             archivo_json.write('\n') 

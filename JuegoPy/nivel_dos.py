@@ -4,9 +4,7 @@ from auxiliar import*
 from constantes import*
 from explocion import Explosion
 from retorno import Return
-from nivel_tres import NivelTres
-
-niveldos_pase = False
+from basedatos import *
 
 class Bomba(pygame.sprite.Sprite):
     def __init__(self):
@@ -99,6 +97,7 @@ class Nivel2():
         self.tiempo_inicio_game = 0
         self.score = 0
         self.running = True
+        self.nombre = ''
         for i in range(10):
             bomba = Bomba()
             self.grupo_bombas.add(bomba)
@@ -113,12 +112,13 @@ class Nivel2():
             ">---------------------------------Eres un humano valiente la verdad.------------------------------------<\n" \
             ">--------La victoria todavia no esta en tus manos, debes defender los ataques alienigenas-----<\n" \
             ">Es momento de probar tu punteria, debes destruir los misiles en el menor tiempo posible-<\n" \
-            ">----------------------------------------------¡GLHF!---------------------------------------------------<"
+            ">----------------------------------------------GLHF---------------------------------------------------<"
     def puntuacion_draw(self):
-        dibujar_texto("PUNTUACION:",WHITE,self.pantalla,ANCHO_PANTALLA-180,70,25)
-        dibujar_texto(str(self.score),RED,self.pantalla,ANCHO_PANTALLA-40,70,25)
-        # dibujar_texto(str(len(self.vida.lista_vidas)),ORANGE,self.pantalla,ANCHO_PANTALLA-100,130,20)
-        # colicion mira bomba
+        dibujar_texto("PUNTUACION:",WHITE,self.pantalla,ANCHO_PANTALLA-210,70,25)
+        dibujar_texto(str(self.score),RED,self.pantalla,ANCHO_PANTALLA-50,70,25)
+        dibujar_texto(self.nombre, LIMON, self.pantalla, ANCHO_PANTALLA//2, 20, 25)
+    
+    # colicion mira bomba
     def colicion_mira_bomba(self):
         impactos = pygame.sprite.spritecollide(self.punto,self.grupo_bombas,True)
         for impacto in impactos:
@@ -163,9 +163,9 @@ class Nivel2():
             volumen = VOLUMEN
             sonido_disparo.set_volume(volumen)
     def control_tiempo_game(self,orden,y):
-        tiempo_actual = pygame.time.get_ticks()
-        self.tiempo_transcurrido_game = tiempo_actual - 1000
-        segundos = (self.tiempo_transcurrido_game // 1000)
+        self.tiempo_actual = pygame.time.get_ticks()
+        self.tiempo_transcurrido = self.tiempo_actual - self.tiempo_inicio_nivel
+        segundos = (self.tiempo_transcurrido // 1000) % 60
         if orden:
             dibujar_texto("TIEMPO:",RED,self.pantalla,ANCHO_PANTALLA-110,y,20)
             dibujar_texto(f"{segundos}",RED,self.pantalla,ANCHO_PANTALLA-40,y,20)
@@ -175,7 +175,7 @@ class Nivel2():
             self.tiempo_transcurrido_nivel = tiempo_actual - self.tiempo_inicio_nivel
             segundos = (self.tiempo_transcurrido_nivel // 1000) % 60
             if orden:
-                dibujar_texto(f"TIEMPO: {self.tiempo_transcurrido_nivel}",RED,self.pantalla,ANCHO_PANTALLA-500,y,20)
+                dibujar_texto(f"TIEMPO: {segundos}",RED,self.pantalla,ANCHO_PANTALLA-500,y,20)
 
     def dibujar_parrafo(self):
         # Dividir el texto en líneas
@@ -227,31 +227,26 @@ class Nivel2():
                 self.grupo_sprite.draw(self.pantalla)
                 self.colision_bomba_tierra()
                 self.puntuacion_draw()
-                self.control_tiempo_game(True,20)
+                self.control_tiempo_game(True,30)
             if self.vida_tierra <= 0:
-                self.guardar_datos()
-                self.guardar = GuardarDatos(self.leer_archivo_json(),self.score,0)
-                # guardar.guardar_datos_juego() 
+                insertar_datos(self.nombre,self.score)
                 pygame.mouse.set_visible(True)
                 dibujar_texto("Perdiste",RED,self.pantalla,ANCHO_PANTALLA//4,ALTO_PANTALLA//4,100)
-                
                 self.running = False
                 retorno = Return()
                 retorno.ejecutar()
+                pygame.quit()
+                sys.exit()
+                # retorno.dibujar_texto_puntuacion(WHITE,self.pantalla,ANCHO_PANTALLA//4,ALTO_PANTALLA//2,100,self.nombre,self.score)
             if self.tiempo_transcurrido_nivel > 31000:  # en 31000
-                self.guardar_datos()
-                print('error 3')
-                niveldos_pase = True
+                from nivel_tres import NivelTres
                 level = NivelTres()
+                level.score_general += self.score
+                level.nombre = self.nombre
                 level.ejecutar()
                 pygame.quit()
                 sys.exit()
             self.control_tiempo_nivel(False,50)
-
-
             pygame.display.flip()
             self.reloj.tick(FPS)
         pygame.quit() # Fin
-        
-# nivel_dos = Nivel2()
-# nivel_dos.nivel_dos()

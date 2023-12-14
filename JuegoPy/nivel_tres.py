@@ -16,6 +16,7 @@ from auxiliar import*
 from pygame.sprite import Group
 from retorno import Return
 
+
 class NivelTres:
     def __init__(self):
         pygame.init()
@@ -52,6 +53,7 @@ class NivelTres:
         self.tiempo_mostrando_texto = 600 
         self.tiempo_transcurrido = 0
         self.score_general = 0
+        self.nombre = ""
         self.datos_score = []
         self.reloj = pygame.time.Clock()
         self.imagen_fondo = pygame.image.load(r"PROGRAMACION 1\JuegoPy\imgs_nivel3\espaciofinall.jpg").convert()
@@ -67,7 +69,6 @@ class NivelTres:
     def generar_sprites(self):
         self.player = Player(self.grupo_sprites,self.grupo_bullets)
         self.enemigo = Enemigo(self.grupo_sprites,self.grupo_blas_enemigo,r"PROGRAMACION 1\JuegoPy\imgs_nivel3\finalboss.png",r"PROGRAMACION 1\JuegoPy\imgs_nivel3\finalbossprojectile.png",180,180,200)
-        # grupo_enemigos = pygame.sprite.Group()
         self.enemigo1 = Enemigo_dos(self.grupo_sprites,self.grupo_blas_enemigo,1,-150,200)
         self.enemigo2 = Enemigo_dos(self.grupo_sprites,self.grupo_blas_enemigo,2,-150,200)
         self.enemigo3 = Enemigo_dos(self.grupo_sprites,self.grupo_blas_enemigo,3,ANCHO_PANTALLA + 150,200)
@@ -100,13 +101,13 @@ class NivelTres:
         #     self.grupo_sprites.add(item_fuego)
         #     self.grupo_items_fuego.add(item_fuego)
 
-   
+
     def play_soud(self,ruta):
         self.sonido_disparo = pygame.mixer.Sound(ruta)
         self.sonido_disparo.play()
         self.volumen = VOLUMEN
         self.sonido_disparo.set_volume(self.volumen)
-  
+
 
     def leer_archivo_json(self,ruta):
         with open(ruta, 'r') as archivo:
@@ -149,7 +150,7 @@ class NivelTres:
             self.cambiar_bala_simple = False
             self.cambiar_bala_doble = False
 
-     #colicion balas con asteriodes
+#colicion balas con asteriodes
     def colision_balas_asteroides(self):
         hits = pygame.sprite.groupcollide(self.grupo_asteroide, self.grupo_bullets, True, True)
         for hit in hits:
@@ -161,7 +162,7 @@ class NivelTres:
             self.grupo_sprites.add(asteriode)
             self.grupo_asteroide.add(asteriode) 
             self.score_general += 15
-  #colicion jugador con asteriode
+#colicion jugador con asteriode
     def colision_jugador_asteroide(self):
         hits = pygame.sprite.spritecollide(self.player, self.grupo_asteroide, True)
         for hit in hits:
@@ -173,11 +174,7 @@ class NivelTres:
             self.escudo -= 5
             if self.escudo <= 0:
                 self.vida.eliminar_vidas(True)
-    # def control_pausa_gameover(self):
-    #     if len(self.vida.lista_vidas) == 0:
-    #         self.game_over = True
-    #         self.running = False
-            
+
 
     # colision laser item
     def colision_laser_item(self):
@@ -242,6 +239,8 @@ class NivelTres:
                 punto_explocion = (daño.rect.center[0],daño.rect.center[1]-20) 
             if self.cambiar_bala_fuego:
                 punto_explocion = (daño.rect.center[0],daño.rect.center[1]-100)
+            if self.enemigo.vida <= 0:
+                self.enemigo.vida == 0
             explocion = Explosion(punto_explocion)
             self.grupo_sprites.add(explocion)
             self.score_general += 20
@@ -256,11 +255,11 @@ class NivelTres:
                 self.vida.eliminar_vidas(True)
 
     def puntuacion_draw(self):
-        dibujar_texto("SCORE:",WHITE,self.pantalla,ANCHO_PANTALLA-135,70,25)
-        dibujar_texto(str(self.score_general),RED,self.pantalla,ANCHO_PANTALLA-40,70,25)
-        # dibujar_texto(str(len(self.vida.lista_vidas)),ORANGE,self.pantalla,ANCHO_PANTALLA-100,130,20)
+        dibujar_texto("Puntuacion:",WHITE,self.pantalla,ANCHO_PANTALLA-210,70,25)
+        dibujar_texto(str(self.score_general),RED,self.pantalla,ANCHO_PANTALLA-50,70,25)
+        dibujar_texto(self.nombre, LIMON, self.pantalla, ANCHO_PANTALLA//2, 20, 25)
+        
 
-    
     def dibujar_parrafo(self):
         # Dividir el texto en líneas
         lines = self.texto.splitlines()
@@ -323,15 +322,8 @@ class NivelTres:
 
         #     print(self.tiempo_nivel)
         while self.running_over:
-            # print("nivel 1")
-            # self.flag_control = 
-            # print(f"{self.running}{self.game_over}")
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT:
-                    # self.guradar_datos_game()  
-                    # print(self.game_over)
-                    # self.datos.append(self.score)
-                    # self.running = False
                     pygame.quit()
                     sys.exit()
                 elif evento.type == pygame.KEYDOWN:
@@ -345,18 +337,8 @@ class NivelTres:
                         self.play_soud("PROGRAMACION 1\JuegoPy\sonido\RIFLE.WAV")
                     if evento.key == pygame.K_RETURN:
                         self.paused = not self.paused
-                    # if evento.key == pygame.K_ESCAPE:
-                    #     # self.running = False
-                    #     # pygame.quit()
-                    #     # sys.exit()
-                    #     self.cambiar_nivel()
-                    #     print("ok")
                 if evento.type == pygame.MOUSEBUTTONDOWN:
                     self.evento_mouse()
-            # self.control_pausa_gameover()
-            self.control_tiempo()
-            # print(self.tiempo_transcurrido,"     ",self.tiempo_game_over)
-            # print(self.tiempo_nivel)
             if self.enemigo.vida > 0:
                 self.tiempo_mision_ok = self.tiempo_transcurrido + 6000
 
@@ -364,7 +346,6 @@ class NivelTres:
                 self.tiempo_game_over = self.tiempo_transcurrido + 6000
             
 
-            # if not self.paused :
             if self.running:
                 if self.tiempo_transcurrido > 0:
                     self.pantalla.blit(self.imagen_fondo, (0, 0))
@@ -372,25 +353,20 @@ class NivelTres:
                     self.dibujar_parrafo()
                 if self.tiempo_transcurrido > 6000:
                     self.pantalla.blit(self.imagen_fondo, (0, 0))
+                    self.control_tiempo()
                     self.grupo_sprites.update()
                     self.grupo_sprites.draw(self.pantalla)
                 if self.enemigo1.vida == 0:
                     self.grupo_sprites.add(self.enemigo)
-                if self.enemigo.vida <= 0:
-                    # self.guardar_datos()
-                    self.guardar = GuardarDatos(self.leer_archivo_json("score1.json"),self.leer_archivo_json("score2.json"),self.score_general)
+                if self.enemigo.vida == 0:
                     dibujar_texto("Mision Completada",MORA,self.pantalla,ANCHO_PANTALLA//2,ALTO_PANTALLA//2.5,90)
-                    print(self.nombre)
-                    crear_y_cargar_datos(self.nombre,self.score_general)
-
                     if self.tiempo_transcurrido >= self.tiempo_mision_ok:                
                         self.running = False
+                        insertar_datos(self.nombre,self.score_general)
                         retorno = Return()
                         retorno.ejecutar()
                         pygame.quit()
                         sys.exit()
-                # if self.tiempo_transcurrido > 21000:
-                #     # self.running_over = False
                 self.control_tiempo()
                 # colision items con player
             if self.tiempo_transcurrido > 8000:  
@@ -410,24 +386,14 @@ class NivelTres:
                 self.escudo_player()
                 self.colision_jugador_asteroide() 
             if len(self.vida.lista_vidas) <= 0:
-                self.guardar = GuardarDatos(self.leer_archivo_json("score1.json"),self.leer_archivo_json("score2.json"),self.score_general)
-                # guardar.guardar_datos_juego() 
                 dibujar_texto("Fallaste",ORANGE,self.pantalla,ANCHO_PANTALLA//4,ALTO_PANTALLA//4,100)
-                # self.running = False
                 self.running = False
+                insertar_datos(self.nombre,self.score_general)
                 retorno = Return()
                 retorno.ejecutar()
-            # if self.paused:
-            #     dibujar_texto("PAUSA",ORANGE,self.pantalla,ANCHO_PANTALLA // 2-150,100,150)
-            #     self.grupo_botones_pause.add(self.boton_menu)
-            #     self.grupo_botones_pause.update()
-            #     self.grupo_botones_pause.draw(self.pantalla)
-            # print(len(self.vida.lista_vidas)) 
-                # self.grupo_botones_game_over.draw(self.pantalla)
+                pygame.quit()
+                sys.exit()
             pygame.display.flip()
 
             self.reloj.tick(FPS)
         pygame.quit() # Fin
-
-# juego = NivelTres ()
-# juego.ejecutar()

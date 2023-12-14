@@ -13,14 +13,16 @@ from item_fuego import Item_fuego
 from auxiliar import*
 from pygame.sprite import Group
 from retorno import Return
-from nivel_dos import Nivel2
 from basedatos import *
-
+from menu import Menu
+import re
 
 pygame.init()
 pygame.mixer.init()
-pase_1 = False
+
+
 class Game:
+    
     def __init__(self):
 
         self.pantalla = pygame.display.set_mode((ANCHO_PANTALLA, ALTO_PANTALLA))
@@ -47,7 +49,7 @@ class Game:
         self.running_over = True
         self.mostrar_texto = False
         self.game_over = False
-        self.escudo = 10
+        self.escudo = 0
         self.tiempo_inicial = 0
         self.tiempo_inicio = 0
         self.tiempo_mostrando_texto = 600 
@@ -58,10 +60,14 @@ class Game:
         self.imagen_fondo = pygame.image.load(r"C:\Users\Nacho\Desktop\Nueva carpeta\vsc\PROGRAMACION 1\JuegoPy\imgs_nivel1\city_lvl1.jpg").convert()
         self.imagen_fondo = pygame.transform.scale(self.imagen_fondo, (ANCHO_PANTALLA, ALTO_PANTALLA))
         self.generar_sprites()
+        self.nombre = ''
+        
+
+    
+
     def generar_sprites(self):
         self.player = Player(self.grupo_sprites,self.grupo_bullets)
         self.enemigo = Enemigo(self.grupo_sprites,self.grupo_blas_enemigo,r"PROGRAMACION 1\JuegoPy\enemigos\nave_alien2.png",r"PROGRAMACION 1\JuegoPy\enemigos\laser_alien2.png",97,75,120)
-        # grupo_enemigos = pygame.sprite.Group()
         self.enemigo1 = Enemigo_dos(self.grupo_sprites,self.grupo_blas_enemigo,1,-150,200)
         self.enemigo2 = Enemigo_dos(self.grupo_sprites,self.grupo_blas_enemigo,2,-150,200)
         self.enemigo3 = Enemigo_dos(self.grupo_sprites,self.grupo_blas_enemigo,3,ANCHO_PANTALLA + 150,200)
@@ -85,10 +91,6 @@ class Game:
             item_doble_bala = Item_doble()
             self.grupo_sprites.add(item_doble_bala) 
             self.grupo_items_doble.add(item_doble_bala)
-        # for i in range(1):
-        #     item_fuego = Item_fuego()
-        #     self.grupo_sprites.add(item_fuego)
-        #     self.grupo_items_fuego.add(item_fuego)
 
 
     def play_soud(self,ruta):
@@ -158,11 +160,7 @@ class Game:
             self.escudo -= 5
             if self.escudo <= 0:
                 self.vida.eliminar_vidas(True)
-    # def control_pausa_gameover(self):
-    #     if len(self.vida.lista_vidas) == 0:
-    #         self.game_over = True
-    #         self.running = False
-            
+
 
     # colision laser item
     def colision_laser_item(self):
@@ -240,11 +238,11 @@ class Game:
                 self.vida.eliminar_vidas(True)
 
     def puntuacion_draw(self):
-        dibujar_texto("SCORE:",WHITE,self.pantalla,ANCHO_PANTALLA-150,70,25)
-        dibujar_texto(str(self.score_general),RED,self.pantalla,ANCHO_PANTALLA-60,70,25)
-        # dibujar_texto(str(len(self.vida.lista_vidas)),RED,self.pantalla,ANCHO_PANTALLA-60,70,25)
+        dibujar_texto("PUNTUACION:",WHITE,self.pantalla,ANCHO_PANTALLA-210,70,25)
+        dibujar_texto(str(self.score_general),RED,self.pantalla,ANCHO_PANTALLA-50,70,25)
+        dibujar_texto(self.nombre, LIMON, self.pantalla, ANCHO_PANTALLA//2, 20, 25)
 
-    
+
     def evento_mouse(self):
         mouse_pos = pygame.mouse.get_pos()
         if self.game_over :
@@ -288,23 +286,17 @@ class Game:
         segundos = (self.tiempo_transcurrido // 1000) % 60
         dibujar_texto(f"TIEMPO: {segundos}",WHITE,self.pantalla,ANCHO_PANTALLA-100,20,20)
     def ejecutar(self):       
-    # game over conf
+    # game over conf}
         self.boton_menu = Boton("PROGRAMACION 1\JuegoPy\menuu\menu.png",ANCHO_PANTALLA // 2 ,ALTO_PANTALLA // 2 + 40)
         self.boton_star = Boton("PROGRAMACION 1\JuegoPy\menuu\startt.png",ANCHO_PANTALLA // 2 ,ALTO_PANTALLA // 2 + 100)
         self.tiempo_inicio = pygame.time.get_ticks()
         self.tiempo_game_over = 0
         self.tiempo_mision_ok = 0
-        #     print(self.tiempo_nivel)
-        print("nivel 3")
+        
+        print("nivel 1")
         while self.running_over:
-            # self.flag_control = 
-            # print(f"{self.running}{self.game_over}")
             for evento in pygame.event.get():
                 if evento.type == pygame.QUIT:
-                    # self.guradar_datos_game()  
-                    # print(self.game_over)
-                    # self.datos.append(self.score)
-                    # self.running = False
                     pygame.quit()
                     sys.exit()
                 elif evento.type == pygame.KEYDOWN:
@@ -318,47 +310,35 @@ class Game:
                         self.play_soud("PROGRAMACION 1\JuegoPy\sonido\RIFLE.WAV")
                     if evento.key == pygame.K_RETURN:
                         self.paused = not self.paused
-                    # if evento.key == pygame.K_ESCAPE:
-                    #     # self.running = False
-                    #     # pygame.quit()
-                    #     # sys.exit()
-                    #     self.cambiar_nivel()
-                    #     print("ok")
+
                 if evento.type == pygame.MOUSEBUTTONDOWN:
                     self.evento_mouse()
-            # self.control_pausa_gameover()
             self.control_tiempo()
-            # print(self.tiempo_transcurrido,"     ",self.tiempo_game_over)
-            # print(self.tiempo_nivel)
             if self.enemigo.vida > 0:
                 self.tiempo_mision_ok = self.tiempo_transcurrido + 6000
 
             if len(self.vida.lista_vidas) > 0:
                 self.tiempo_game_over = self.tiempo_transcurrido + 6000
-            
 
-            # if not self.paused :
+
             if self.running:
-                # print(self.enemigo1.vida,self.enemigo2.vida,self.enemigo3.vida,self.enemigo4.vida)
                 self.pantalla.blit(self.imagen_fondo, (0, 0))
                 if self.tiempo_transcurrido > 1000:
                     self.grupo_sprites.update()
                     self.grupo_sprites.draw(self.pantalla)
                 if self.enemigo1.vida == 0 and self.enemigo2.vida == 0 and self.enemigo3.vida == 0 and self.enemigo4.vida == 0:
-                    # print("Segundo enemigo")
                     self.grupo_sprites.add(self.enemigo)
                 if self.enemigo.vida == 0: #Tiene que estar en == 0 
                     dibujar_texto("Mision Completada",WHITE,self.pantalla,ANCHO_PANTALLA//2,ALTO_PANTALLA//2.5,90)
-                    if self.tiempo_transcurrido >= self.tiempo_mision_ok:                
-                        pase_1 = True
-                        crear_y_cargar_datos(self.nombre,self.score_general)
-                        
+                    if self.tiempo_transcurrido >= self.tiempo_mision_ok:
+                        crear_tabla_si_no_existe()
+                        from nivel_dos import Nivel2
                         level = Nivel2()
+                        level.nombre = self.nombre
+                        level.score += self.score_general
                         level.nivel_dos()
                         pygame.quit()
                         sys.exit()
-                # if self.tiempo_transcurrido > 21000:
-                #     # self.running_over = False
                 self.control_tiempo()
                 # colision items con player
                 self.colicion_item_vida_player() 
@@ -377,20 +357,16 @@ class Game:
                 self.puntuacion_draw()
                 self.colision_jugador_asteroide() 
             if len(self.vida.lista_vidas) <= 0:
-                self.guardar = GuardarDatos(self.score_general,0,0)
-                # guardar.guardar_datos_juego() 
                 dibujar_texto("Perdiste",RED,self.pantalla,ANCHO_PANTALLA//4,ALTO_PANTALLA//4,100)
-                # self.running = False
+                crear_tabla_si_no_existe()      
+                insertar_datos(self.nombre,self.score_general)
                 self.running = False
                 retorno = Return()
                 retorno.ejecutar()
-            # if self.paused:
-            #     dibujar_texto("PAUSA",ORANGE,self.pantalla,ANCHO_PANTALLA // 2-150,100,150)
-            #     self.grupo_botones_pause.add(self.boton_menu)
-            #     self.grupo_botones_pause.update()
-            #     self.grupo_botones_pause.draw(self.pantalla)
-            # print(len(self.vida.lista_vidas)) 
-                # self.grupo_botones_game_over.draw(self.pantalla)
+                pygame.quit()
+                sys.exit()
+                # retorno.dibujar_texto_puntuacion(WHITE,self.pantalla,ANCHO_PANTALLA//4,ALTO_PANTALLA//2,100,self.nombre,self.score_general)
+                
             pygame.display.flip()
 
             self.reloj.tick(FPS)

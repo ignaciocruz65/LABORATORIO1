@@ -14,9 +14,9 @@ class Enemigo(pygame.sprite.Sprite):
         self.rect.centerx =  -150
         self.rect.bottom = pose
         self.speed_x = 2
-        self.vida = 100
+        self.vida = 10 #500
         self.tiempo_disparo = 0  # Variable para controlar el tiempo entre disparos
-        self.frecuencia_disparo = 400  # Tiempo en milisegundos entre cada disparo
+        self.frecuencia_disparo = 200  # Tiempo en milisegundos entre cada disparo
         self.ruta_bala = bala_ruta
         self.shield = 100
     def update(self):
@@ -48,16 +48,13 @@ class Enemigo_dos(pygame.sprite.Sprite):
         self.grupo_sprites = grupo_sprites
         self.bullets = bullets
         self.numero_nave = numero
-        self.imagen = pygame.image.load(r"PROGRAMACION 1\JuegoPy\enemigos\nave_alien.png")#.convert()
-        # self.imagen.set_colorkey(BLACK)
+        self.imagen = pygame.image.load(r"PROGRAMACION 1\JuegoPy\enemigos\nave_alien.png")
         self.image = pygame.transform.scale(self.imagen,(97 * 1.5,75))
         self.rect = self.image.get_rect()
         self.rect.centerx = pose_x
         self.rect.bottom = pose_y
         self.speed_x = 2
-        self.vida = 50
-        
-
+        self.vida = 10 #50
         self.tiempo_disparo = 0  # Variable para controlar el tiempo entre disparos
         self.frecuencia_disparo = 2000  # Tiempo en milisegundos entre cada disparo
         # self.shield = 100
